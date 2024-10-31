@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Tracking</title>
+</head>
+<body>
+    <h1>Device Tracking</h1>
+    <form method="get" action="/plot">
+        <label for="room_id">Room ID:</label>
+        <input type="number" id="room_id" name="room_id" required>
+        <button type="submit">Submit</button>
+    </form>
+    
+    {% if plot_url %}
+    <div>
+        <h2>Plot</h2>
+        <img src="{{ plot_url }}" alt="Plot">
+    </div>
+    
+    <div>
+        <h2>Device Positions</h2>
+        <ul>
+            {% for mac, position in device_positions.items() %}
+            <li>{{ position['name'] }}: ({{ position['x'] }}, {{ position['y'] }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>
