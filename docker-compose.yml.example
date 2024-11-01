@@ -1,0 +1,17 @@
+version: '3'
+services:
+  flask-app:
+    build: .
+    container_name: flask-app
+    restart: always
+    ports:
+      - "8025:80"
+    networks:
+      - flask-network
+    env_file:
+      - .env  
+    volumes:
+      - .:/app  
+networks:
+  flask-network:
+    driver: bridge
