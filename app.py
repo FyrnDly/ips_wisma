@@ -13,6 +13,7 @@ load_dotenv()
 app = Flask(__name__)
 
 # Get Config APP
+APP_URL = os.getenv("APP_URL", "localhost")
 APP_PORT = os.getenv("APP_PORT", 80)
 APP_DEBUG = os.getenv("APP_PORT", True)
 
@@ -123,4 +124,4 @@ def get_positions():
     return jsonify(response)
 
 if __name__ == '__main__':
-    app.run(debug=APP_PORT, port=APP_DEBUG)
+    app.run(debug=APP_PORT, port=APP_DEBUG, host=APP_URL)
