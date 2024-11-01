@@ -22,9 +22,13 @@
     <div>
         <h2>Device Positions</h2>
         <ul>
+            {% if device_positions %}
             {% for mac, position in device_positions.items() %}
             <li>{{ position['name'] }}: ({{ position['x'] }}, {{ position['y'] }})</li>
             {% endfor %}
+            {% else %}
+            Not Devices
+            {% endif %}
         </ul>
     </div>
     {% endif %}

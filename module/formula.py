@@ -43,7 +43,28 @@ def plot_beacons_and_devices(beacons, labels, device_positions, filename):
     plt.axis('equal')
     
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
-    plt.tight_layout() 
+    plt.tight_layout()
     plt.savefig(filename)
-    plt.close() 
+    plt.close()
 
+def plot_no_devices(beacons, labels, filename):
+    fig, ax = plt.subplots(figsize=(16,9))
+    colors = ['r', 'g', 'b', 'y']
+    color_index = 0
+
+    for label in labels:
+        beacon = beacons[label]
+        ax.plot(*beacon['pos'], colors[color_index]+'o', label=f'Beacon {label}')
+        ax.annotate(label, beacon['pos'], textcoords="offset points", xytext=(0,10), ha='center')
+
+    ax.text(0.5, 0.5, 'No devices detected', horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, fontsize=20, color='red')
+    
+    plt.xlabel('X Coordinate')
+    plt.ylabel('Y Coordinate')
+    plt.grid(True)
+    plt.axis('equal')
+    
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.tight_layout()
+    plt.savefig(filename)
+    plt.close()
