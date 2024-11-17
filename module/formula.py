@@ -22,16 +22,11 @@ def find_device_position(beacons, labels, distances, initial_guess):
 
 def plot_beacons_and_devices(beacons, labels, device_positions, filename):
     fig, ax = plt.subplots(figsize=(16,9))
-    colors = ['r', 'g', 'b', 'y']
-    color_index = 0
 
     for label in labels:
         beacon = beacons[label]
-        ax.plot(*beacon['pos'], colors[color_index]+'o', label=f'Beacon {label}')
+        ax.plot(*beacon['pos'], 'ro', label=f'Beacon {label}')  # 'r'+'o' simplified to 'ro'
         ax.annotate(label, beacon['pos'], textcoords="offset points", xytext=(0,10), ha='center')
-        for distance in device_positions.values():
-            ax.add_patch(plt.Circle(beacon['pos'], distance[label], color=colors[color_index], fill=False))
-        color_index = (color_index + 1) % len(colors)
 
     for mac, position in device_positions.items():
         ax.plot(position['x'], position['y'], 'kx', label=f'{position["name"]}')
@@ -41,7 +36,7 @@ def plot_beacons_and_devices(beacons, labels, device_positions, filename):
     plt.ylabel('Y Coordinate')
     plt.grid(True)
     plt.axis('equal')
-    
+
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
     plt.savefig(filename)
@@ -49,12 +44,10 @@ def plot_beacons_and_devices(beacons, labels, device_positions, filename):
 
 def plot_no_devices(beacons, labels, filename):
     fig, ax = plt.subplots(figsize=(16,9))
-    colors = ['r', 'g', 'b', 'y']
-    color_index = 0
 
     for label in labels:
         beacon = beacons[label]
-        ax.plot(*beacon['pos'], colors[color_index]+'o', label=f'Beacon {label}')
+        ax.plot(*beacon['pos'], 'r'+'o', label=f'Beacon {label}')
         ax.annotate(label, beacon['pos'], textcoords="offset points", xytext=(0,10), ha='center')
 
     ax.text(0.5, 0.5, 'No devices detected', horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, fontsize=20, color='red')
